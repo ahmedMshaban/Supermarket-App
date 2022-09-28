@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "../components/ui";
+import { Link } from "react-router-dom";
 
 interface Props {
   name: string;
+  id: number;
   description: string;
   image: string;
   price: number;
@@ -11,6 +13,7 @@ interface Props {
 
 export const Product: React.FC<Props> = ({
   name,
+  id,
   description,
   image,
   price,
@@ -19,13 +22,15 @@ export const Product: React.FC<Props> = ({
   return (
     <div className="product">
       <div className="product-image-container">
-        <img
-          width="100"
-          height="100"
-          className="product-image"
-          alt={name}
-          src={image}
-        />
+        <Link to={`/products/${id}`}>
+          <img
+            width="100"
+            height="100"
+            className="product-image"
+            alt={name}
+            src={image}
+          />
+        </Link>
         <div className="product-quantity-container">
           <div className="product-quantity">0</div>
         </div>
@@ -36,7 +41,9 @@ export const Product: React.FC<Props> = ({
       </div>
       <div className="product-checkout">
         <div>
-          <Button outline className="product-delete">x</Button>
+          <Button outline className="product-delete">
+            x
+          </Button>
         </div>
         <Button outline>${price}</Button>
       </div>

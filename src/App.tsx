@@ -1,9 +1,15 @@
 import React from "react";
 import "./App.css";
-import { Button, Input } from "./components/ui";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { Home, About, Cart, Navbar, Products } from "./components";
+import {
+  Home,
+  About,
+  Cart,
+  Navbar,
+  Products,
+  ProductDetails,
+} from "./components";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +25,9 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/products">
             <Products />
+          </Route>
+          <Route path="/products/:id">
+            <ProductDetails />
           </Route>
           <Route exact path="/cart">
             <Cart />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Product } from ".";
 import { useFetch } from "../hooks";
 import { Loader } from "./ui";
@@ -45,6 +45,7 @@ export const Products = () => {
                 description={product.description}
                 image={product.image}
                 name={product.name}
+                id={product.id}
                 price={product.price}
                 price_id={product.price_id}
               />

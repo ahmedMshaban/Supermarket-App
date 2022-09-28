@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
@@ -9,7 +8,7 @@ export const Navbar = () => {
       </NavLink>
       <ul>
         <li className="nav-item">
-          <NavLink to="/" exact activeClassName="active">
+        <NavLink to="/" exact activeClassName="active">
             Home
           </NavLink>
         </li>
