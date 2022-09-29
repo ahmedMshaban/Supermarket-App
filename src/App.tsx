@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -12,9 +12,26 @@ import {
 } from "./components";
 
 const App: React.FC = () => {
+  const [cart, setCart] = useState([]);
+
+  const handleProductAdd = (newProduct: {
+    name: string;
+    id: number;
+    description: string;
+    image: string;
+    price: number;
+    price_id: string;
+  }) => {
+    console.log("Adding product " + newProduct.id);
+  };
+
+  const handleProductDelete = (id: number) => {
+    console.log("Deleting product " + id);
+  };
+
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar cart={cart} />
       <div className="container">
         <Switch>
           <Route exact path="/">
@@ -24,13 +41,17 @@ const App: React.FC = () => {
             <About />
           </Route>
           <Route exact path="/products">
-            <Products />
+            <Products
+              cart={cart}
+              onProductAdd={handleProductAdd}
+              onProductDelete={handleProductDelete}
+            />
           </Route>
           <Route path="/products/:id">
-            <ProductDetails />
+            <ProductDetails onProductAdd={handleProductAdd} />
           </Route>
           <Route exact path="/cart">
-            <Cart />
+            <Cart cart={cart} />
           </Route>
         </Switch>
       </div>

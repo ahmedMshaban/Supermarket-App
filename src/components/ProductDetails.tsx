@@ -28,7 +28,25 @@ interface Details {
   storage: string;
 }
 
-export const ProductDetails = () => {
+interface Props {
+  onProductAdd: ({
+    name,
+    id,
+    description,
+    image,
+    price,
+    price_id,
+  }: {
+    name: string;
+    id: number;
+    description: string;
+    image: string;
+    price: number;
+    price_id: string;
+  }) => void;
+}
+
+export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
   const { id } = useParams<Params>();
   const [details, setDetails] = useState<Details | null>(null);
   const { get, loading } = useFetch(
@@ -97,6 +115,11 @@ export const ProductDetails = () => {
               <ProductDetailInfo
                 description={details.description}
                 price={details.price}
+                name={details.name}
+                id={details.id}
+                image={details.image}
+                price_id={details.price_id}
+                onProductAdd={onProductAdd}
               />
             </Route>
             <Route exact path={`/products/${id}/nutrition`}>

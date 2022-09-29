@@ -12,7 +12,31 @@ interface ProductData {
   price_id: string;
 }
 
-export const Products = () => {
+interface Props {
+  cart: [];
+  onProductAdd: ({
+    name,
+    id,
+    description,
+    image,
+    price,
+    price_id,
+  }: {
+    name: string;
+    id: number;
+    description: string;
+    image: string;
+    price: number;
+    price_id: string;
+  }) => void;
+  onProductDelete: (id: number) => void;
+}
+
+export const Products: React.FC<Props> = ({
+  cart,
+  onProductAdd,
+  onProductDelete,
+}) => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const { get, loading } = useFetch(
     "https://react-tutorial-demo.firebaseio.com/"
@@ -48,6 +72,9 @@ export const Products = () => {
                 id={product.id}
                 price={product.price}
                 price_id={product.price_id}
+                cart={cart}
+                onProductAdd={onProductAdd}
+                onProductDelete={onProductDelete}
               />
             );
           })

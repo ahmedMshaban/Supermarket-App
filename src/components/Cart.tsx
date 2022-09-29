@@ -1,4 +1,8 @@
-export const Cart = () => {
+interface Props {
+  cart: [];
+}
+
+export const Cart: React.FC<Props> = ({ cart }) => {
   return (
     <div className="cart-layout">
       <div>

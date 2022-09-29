@@ -9,6 +9,23 @@ interface Props {
   image: string;
   price: number;
   price_id: string;
+  cart: [];
+  onProductAdd: ({
+    name,
+    id,
+    description,
+    image,
+    price,
+    price_id,
+  }: {
+    name: string;
+    id: number;
+    description: string;
+    image: string;
+    price: number;
+    price_id: string;
+  }) => void;
+  onProductDelete: (id: number) => void;
 }
 
 export const Product: React.FC<Props> = ({
@@ -18,7 +35,18 @@ export const Product: React.FC<Props> = ({
   image,
   price,
   price_id,
+  cart,
+  onProductAdd,
+  onProductDelete,
 }) => {
+  const handleProductAdd = () => {
+    onProductAdd({ name, id, description, image, price, price_id });
+  };
+
+  const handleProductDelete = () => {
+    onProductDelete(id);
+  };
+
   return (
     <div className="product">
       <div className="product-image-container">
@@ -41,11 +69,17 @@ export const Product: React.FC<Props> = ({
       </div>
       <div className="product-checkout">
         <div>
-          <Button outline className="product-delete">
+          <Button
+            onClick={handleProductDelete}
+            outline
+            className="product-delete"
+          >
             x
           </Button>
         </div>
-        <Button outline>${price}</Button>
+        <Button onClick={handleProductAdd} outline>
+          ${price}
+        </Button>
       </div>
     </div>
   );

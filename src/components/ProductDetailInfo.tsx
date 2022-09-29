@@ -1,17 +1,49 @@
 import React from "react";
+import { Button } from "../components/ui";
 
 interface Props {
   description: string;
+  id: number;
+  image: string;
+  name: string;
   price: number;
+  price_id: string;
+  onProductAdd: ({
+    name,
+    id,
+    description,
+    image,
+    price,
+    price_id,
+  }: {
+    name: string;
+    id: number;
+    description: string;
+    image: string;
+    price: number;
+    price_id: string;
+  }) => void;
 }
 
-export const ProductDetailInfo: React.FC<Props> = ({ description, price }) => {
+export const ProductDetailInfo: React.FC<Props> = ({
+  name,
+  id,
+  image,
+  description,
+  price,
+  price_id,
+  onProductAdd,
+}) => {
+  const handleProductAdd = () => {
+    onProductAdd({ name, id, description, image, price, price_id });
+  };
+
   return (
     <>
       <p>
         {description} sold at <strong>${price}</strong> per piece.
       </p>
-      <button>${price}</button>
+      <Button onClick={handleProductAdd}>${price}</Button>
     </>
   );
 };
