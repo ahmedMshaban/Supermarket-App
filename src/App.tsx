@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -11,22 +11,44 @@ import {
   ProductDetails,
 } from "./components";
 
-const App: React.FC = () => {
-  const [cart, setCart] = useState([]);
+interface Product {
+  name: string;
+  id: number;
+  image: string;
+  price: number;
+  price_id: string;
+  quantity: number;
+}
 
-  const handleProductAdd = (newProduct: {
-    name: string;
-    id: number;
-    description: string;
-    image: string;
-    price: number;
-    price_id: string;
-  }) => {
-    console.log("Adding product " + newProduct.id);
+const App: React.FC = () => {
+  const [cart, setCart] = useState<Product[]>([]);
+
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
+
+  const handleProductAdd = (newProduct: Product) => {
+    //Check if product exists
+    let existsProduct = cart.find((product) => newProduct.id === product.id);
+
+    //Add new product to the cart
+    if (!existsProduct) {
+      setCart([...cart, newProduct]);
+    } else {
+      //Update existing product
+      setCart(
+        cart.map((product) => {
+          if (product.id === existsProduct?.id) {
+            return { ...product, quantity: existsProduct.quantity + 1 };
+          }
+          return product;
+        })
+      );
+    }
   };
 
   const handleProductDelete = (id: number) => {
-    console.log("Deleting product " + id);
+    setCart(cart.filter((product) => product.id !== id));
   };
 
   return (

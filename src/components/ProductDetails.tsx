@@ -32,17 +32,17 @@ interface Props {
   onProductAdd: ({
     name,
     id,
-    description,
     image,
     price,
     price_id,
+    quantity,
   }: {
     name: string;
     id: number;
-    description: string;
     image: string;
     price: number;
     price_id: string;
+    quantity: number
   }) => void;
 }
 

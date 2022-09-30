@@ -21,6 +21,7 @@ interface Props {
     image,
     price,
     price_id,
+    quantity
   }: {
     name: string;
     id: number;
@@ -28,6 +29,7 @@ interface Props {
     image: string;
     price: number;
     price_id: string;
+    quantity: number;
   }) => void;
   onProductDelete: (id: number) => void;
 }

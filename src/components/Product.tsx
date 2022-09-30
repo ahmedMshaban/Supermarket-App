@@ -13,17 +13,17 @@ interface Props {
   onProductAdd: ({
     name,
     id,
-    description,
     image,
     price,
     price_id,
+    quantity,
   }: {
     name: string;
     id: number;
-    description: string;
     image: string;
     price: number;
     price_id: string;
+    quantity: number;
   }) => void;
   onProductDelete: (id: number) => void;
 }
@@ -40,7 +40,7 @@ export const Product: React.FC<Props> = ({
   onProductDelete,
 }) => {
   const handleProductAdd = () => {
-    onProductAdd({ name, id, description, image, price, price_id });
+    onProductAdd({ name, id, image, price, price_id, quantity: 1 });
   };
 
   const handleProductDelete = () => {
