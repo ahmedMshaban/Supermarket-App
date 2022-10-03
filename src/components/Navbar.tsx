@@ -5,6 +5,11 @@ interface Props {
 }
 
 export const Navbar: React.FC<Props> = ({ cart }) => {
+  let quantity = 0;
+  cart.forEach((product: { quantity: number }) => {
+    quantity += product.quantity;
+  });
+
   return (
     <nav className="navbar">
       <NavLink to="/" exact className="nav-brand">
@@ -28,7 +33,7 @@ export const Navbar: React.FC<Props> = ({ cart }) => {
         </li>
         <li>
           <NavLink to="/cart" className="nav-item nav-cart btn btn-accent">
-            Cart (0)
+            Cart ({quantity})
           </NavLink>
         </li>
       </ul>

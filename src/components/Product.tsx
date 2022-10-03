@@ -28,6 +28,15 @@ interface Props {
   onProductDelete: (id: number) => void;
 }
 
+interface Product {
+  name: string;
+  id: number;
+  image: string;
+  price: number;
+  price_id: string;
+  quantity: number;
+}
+
 export const Product: React.FC<Props> = ({
   name,
   id,
@@ -47,6 +56,11 @@ export const Product: React.FC<Props> = ({
     onProductDelete(id);
   };
 
+  const productFromCart = cart.find(
+    (product: Product) => product.id === id
+  ) ?? { quantity: 0 };
+  const quantity = productFromCart ? productFromCart.quantity : 0;
+
   return (
     <div className="product">
       <div className="product-image-container">
@@ -60,7 +74,9 @@ export const Product: React.FC<Props> = ({
           />
         </Link>
         <div className="product-quantity-container">
-          <div className="product-quantity">0</div>
+          {productFromCart && (
+            <div className="product-quantity">{quantity}</div>
+          )}
         </div>
       </div>
       <div className="product-info">
@@ -69,14 +85,17 @@ export const Product: React.FC<Props> = ({
       </div>
       <div className="product-checkout">
         <div>
-          <Button
-            onClick={handleProductDelete}
-            outline
-            className="product-delete"
-          >
-            x
-          </Button>
+          {productFromCart && (
+            <Button
+              onClick={handleProductDelete}
+              outline
+              className="product-delete"
+            >
+              x
+            </Button>
+          )}
         </div>
+
         <Button onClick={handleProductAdd} outline>
           ${price}
         </Button>
