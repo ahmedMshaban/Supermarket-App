@@ -16,10 +16,17 @@ interface Product {
 }
 
 const App: React.FC = () => {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<Product[]>(() => {
+    const data = localStorage.getItem("cart");
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return [];
+    }
+  });
 
   useEffect(() => {
-    console.log(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const handleProductAdd = (newProduct: Product) => {

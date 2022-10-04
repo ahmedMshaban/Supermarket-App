@@ -7,6 +7,7 @@ interface Props {
 }
 
 export const Cart: React.FC<Props> = ({ cart }) => {
+  let totalCart = 0;
   return (
     <div className="cart-layout">
       <div>
@@ -15,32 +16,42 @@ export const Cart: React.FC<Props> = ({ cart }) => {
           <table className="table table-cart">
             <thead>
               <tr>
-                <th width="25%" className="th-product">
+                <th data-width="25%" className="th-product">
                   Product
                 </th>
-                <th width="20%">Unit price</th>
-                <th width="10%">Quanity</th>
-                <th width="25%">Total</th>
+                <th data-width="20%">Unit price</th>
+                <th data-width="10%">Quanity</th>
+                <th data-width="25%">Total</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <img width="30" height="30" alt="" />
-                  NAME
-                </td>
-                <td>$PRICE</td>
-                <td>QUANTITY</td>
-                <td>
-                  <strong>$TOTALPRICE</strong>
-                </td>
-              </tr>
+              {cart.map((product: Product) => {
+                totalCart += +product.quantity * +product.price;
+                return (
+                  <tr key={product.id}>
+                    <td>
+                      <img
+                        width="30"
+                        height="30"
+                        alt={product.name as string}
+                        src={product.image as string}
+                      />
+                      {product.name}
+                    </td>
+                    <td>${product.price}</td>
+                    <td>{product.quantity}</td>
+                    <td>
+                      <strong>${+product.quantity * +product.price}</strong>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
             <tfoot>
               <tr>
-                <th colSpan="2"></th>
+                <th colSpan={2}></th>
                 <th className="cart-highlight">Total</th>
-                <th className="cart-highlight">$TOTALCART</th>
+                <th className="cart-highlight">${totalCart}</th>
               </tr>
             </tfoot>
           </table>
