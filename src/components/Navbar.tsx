@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
 
+interface Product {
+  [key: string]: string | number;
+}
+
 interface Props {
-  cart: [];
+  cart: Product[];
 }
 
 export const Navbar: React.FC<Props> = ({ cart }) => {
   let quantity = 0;
-  cart.forEach((product: { quantity: number }) => {
-    quantity += product.quantity;
+  cart.forEach((product: Product) => {
+    quantity += product.quantity as number;
   });
 
   return (

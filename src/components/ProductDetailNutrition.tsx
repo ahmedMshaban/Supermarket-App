@@ -2,10 +2,7 @@ import React from "react";
 
 interface Props {
   nutrition: {
-    carbs: number;
-    fat: number;
-    protein: number;
-    salt: number;
+    [key: string]: number;
   };
 }
 

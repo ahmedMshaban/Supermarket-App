@@ -1,19 +1,10 @@
 import { useState } from "react";
 
-interface ProductData {
-  description: string;
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-  price_id: string;
-}
-
 export function useFetch(baseUrl: string) {
   const [loading, setLoading] = useState(true);
 
-  function get<ProductData>(url: string) {
-    return new Promise<ProductData>((resolve, reject) => {
+  function get<T extends object>(url: string) {
+    return new Promise<T>((resolve, reject) => {
       fetch(baseUrl + url)
         .then((response) => response.json())
         .then((data) => {
@@ -31,8 +22,8 @@ export function useFetch(baseUrl: string) {
     });
   }
 
-  function post<ProductData>(url: string, body: object) {
-    return new Promise<ProductData>((resolve, reject) => {
+  function post<T extends object>(url: string, body: object) {
+    return new Promise<T>((resolve, reject) => {
       fetch(baseUrl + url, {
         method: "post",
         headers: {

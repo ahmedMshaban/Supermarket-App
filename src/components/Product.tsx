@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../components/ui";
 import { Link } from "react-router-dom";
 
+
 interface Props {
   name: string;
   id: number;
@@ -9,32 +10,13 @@ interface Props {
   image: string;
   price: number;
   price_id: string;
-  cart: [];
-  onProductAdd: ({
-    name,
-    id,
-    image,
-    price,
-    price_id,
-    quantity,
-  }: {
-    name: string;
-    id: number;
-    image: string;
-    price: number;
-    price_id: string;
-    quantity: number;
-  }) => void;
+  cart: Product[];
+  onProductAdd: (params: { [key: string]: string | number }) => void;
   onProductDelete: (id: number) => void;
 }
 
 interface Product {
-  name: string;
-  id: number;
-  image: string;
-  price: number;
-  price_id: string;
-  quantity: number;
+  [key: string]: string | number;
 }
 
 export const Product: React.FC<Props> = ({

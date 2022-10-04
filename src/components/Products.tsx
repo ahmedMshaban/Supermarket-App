@@ -12,26 +12,14 @@ interface ProductData {
   price_id: string;
 }
 
+interface Product {
+  [key: string]: string | number;
+}
+
 interface Props {
-  cart: [];
-  onProductAdd: ({
-    name,
-    id,
-    description,
-    image,
-    price,
-    price_id,
-    quantity
-  }: {
-    name: string;
-    id: number;
-    description: string;
-    image: string;
-    price: number;
-    price_id: string;
-    quantity: number;
-  }) => void;
-  onProductDelete: (id: number) => void;
+  cart: Product[];
+  onProductAdd: (params: { [key: string]: string | number }) => void;
+  onProductDelete: <T extends number>(id: T) => void;
 }
 
 export const Products: React.FC<Props> = ({

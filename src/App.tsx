@@ -12,12 +12,7 @@ import {
 } from "./components";
 
 interface Product {
-  name: string;
-  id: number;
-  image: string;
-  price: number;
-  price_id: string;
-  quantity: number;
+  [key: string]: string | number;
 }
 
 const App: React.FC = () => {
@@ -39,7 +34,10 @@ const App: React.FC = () => {
       setCart(
         cart.map((product) => {
           if (product.id === existsProduct?.id) {
-            return { ...product, quantity: existsProduct.quantity + 1 };
+            return {
+              ...product,
+              quantity: (existsProduct.quantity as number) + 1,
+            };
           }
           return product;
         })
@@ -47,9 +45,9 @@ const App: React.FC = () => {
     }
   };
 
-  const handleProductDelete = (id: number) => {
+  function handleProductDelete<T extends number>(id: T) {
     setCart(cart.filter((product) => product.id !== id));
-  };
+  }
 
   return (
     <BrowserRouter>

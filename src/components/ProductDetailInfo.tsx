@@ -8,21 +8,7 @@ interface Props {
   name: string;
   price: number;
   price_id: string;
-  onProductAdd: ({
-    name,
-    id,
-    image,
-    price,
-    price_id,
-    quantity
-  }: {
-    name: string;
-    id: number;
-    image: string;
-    price: number;
-    price_id: string;
-    quantity: number
-  }) => void;
+  onProductAdd: (params: { [key: string]: string | number }) => void;
 }
 
 export const ProductDetailInfo: React.FC<Props> = ({
