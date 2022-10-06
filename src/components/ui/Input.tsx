@@ -23,7 +23,7 @@ export const Input: React.FC<Props> = ({
         <input
           type={type}
           placeholder={placeholder}
-          className={`input ${className}`}
+          className={`input ${className ? className : ''}`}
           required={required}
           {...rest}
         />

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   return (
     <div className="home-layout">
       <div>

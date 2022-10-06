@@ -1,4 +1,4 @@
-export const About = () => {
+export const About: React.FC = () => {
   return (
     <div className="about-layout">
       <div>

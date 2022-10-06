@@ -35,11 +35,11 @@ const App: React.FC = () => {
 
     //Add new product to the cart
     if (!existsProduct) {
-      setCart([...cart, newProduct]);
+      setCart((prevCart) => [...prevCart, newProduct]);
     } else {
       //Update existing product
-      setCart(
-        cart.map((product) => {
+      setCart((prevCart) =>
+        prevCart.map((product) => {
           if (product.id === existsProduct?.id) {
             return {
               ...product,
@@ -53,7 +53,7 @@ const App: React.FC = () => {
   };
 
   function handleProductDelete<T extends number>(id: T) {
-    setCart(cart.filter((product) => product.id !== id));
+    setCart((prevCart) => prevCart.filter((product) => product.id !== id));
   }
 
   return (

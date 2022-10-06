@@ -15,7 +15,9 @@ export const Button: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={`btn ${outline ? "btn-outline" : "btn-default"} ${className}`}
+      className={`btn ${outline ? "btn-outline" : "btn-default"} ${
+        className ? className : ""
+      }`}
       {...rest}
     >
       {children}
