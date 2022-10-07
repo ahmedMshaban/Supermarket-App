@@ -4,8 +4,8 @@ import { Loader } from "../components/ui";
 import { useParams, NavLink, Switch, Route } from "react-router-dom";
 import {
   ProductDetailInfo,
-  ProductDetailNutrition,
-  ProductDetailStorage,
+  ProductDetailSpecs,
+  ProductDetailDelivery,
 } from ".";
 
 interface Params {
@@ -14,18 +14,14 @@ interface Params {
 
 interface Details {
   description: string;
+  delivery: string;
+  specs: { materials: string; gender: string; athletic: string };
+  details: string;
   id: number;
   image: string;
   name: string;
-  nutrition: {
-    carbs: number;
-    fat: number;
-    protein: number;
-    salt: number;
-  };
   price: number;
   price_id: string;
-  storage: string;
 }
 
 interface Props {
@@ -36,11 +32,11 @@ export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
   const { id } = useParams<Params>();
   const [details, setDetails] = useState<Details | null>(null);
   const { get, loading } = useFetch(
-    "https://react-tutorial-demo.firebaseio.com/"
+    "https://orangeinsoles-c0976-default-rtdb.firebaseio.com/"
   );
 
   useEffect(() => {
-    get<Details>(`productinfo/id${id}.json`)
+    get<Details>(`products/${id}.json`)
       .then((data) => {
         if (data) {
           setDetails(data);
@@ -80,18 +76,18 @@ export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
               </li>
               <li>
                 <NavLink
-                  to={`/products/${id}/nutrition`}
+                  to={`/products/${id}/specs`}
                   activeClassName="tab-active"
                 >
-                  Nutrition
+                  Specs
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to={`/products/${id}/storage`}
+                  to={`/products/${id}/delivery`}
                   activeClassName="tab-active"
                 >
-                  Storage
+                  Delivery
                 </NavLink>
               </li>
             </ul>
@@ -99,7 +95,7 @@ export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
           <Switch>
             <Route exact path={`/products/${id}`}>
               <ProductDetailInfo
-                description={details.description}
+                details={details.details}
                 price={details.price}
                 name={details.name}
                 id={details.id}
@@ -108,11 +104,11 @@ export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
                 onProductAdd={onProductAdd}
               />
             </Route>
-            <Route exact path={`/products/${id}/nutrition`}>
-              <ProductDetailNutrition nutrition={details.nutrition} />
+            <Route exact path={`/products/${id}/specs`}>
+              <ProductDetailSpecs specs={details.specs} />
             </Route>
-            <Route exact path={`/products/${id}/storage`}>
-              <ProductDetailStorage storage={details.storage} />
+            <Route exact path={`/products/${id}/delivery`}>
+              <ProductDetailDelivery delivery={details.delivery} />
             </Route>
           </Switch>
         </div>

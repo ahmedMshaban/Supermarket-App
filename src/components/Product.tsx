@@ -43,6 +43,7 @@ export const Product: React.FC<Props> = ({
   ) ?? { quantity: 0 };
   const quantity = productFromCart ? productFromCart.quantity : 0;
 
+
   return (
     <div className="product">
       <div className="product-image-container">
@@ -56,7 +57,7 @@ export const Product: React.FC<Props> = ({
           />
         </Link>
         <div className="product-quantity-container">
-          {productFromCart && (
+          {quantity > 0 && (
             <div className="product-quantity">{quantity}</div>
           )}
         </div>
@@ -67,7 +68,7 @@ export const Product: React.FC<Props> = ({
       </div>
       <div className="product-checkout">
         <div>
-          {productFromCart && (
+          {quantity > 0 && (
             <Button
               onClick={handleProductDelete}
               outline

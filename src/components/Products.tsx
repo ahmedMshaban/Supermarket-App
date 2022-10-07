@@ -29,11 +29,11 @@ export const Products: React.FC<Props> = ({
 }) => {
   const [products, setProducts] = useState<ProductData[]>([]);
   const { get, loading } = useFetch(
-    "https://react-tutorial-demo.firebaseio.com/"
+    "https://orangeinsoles-c0976-default-rtdb.firebaseio.com/"
   );
 
   useEffect(() => {
-    get<ProductData[]>("supermarket.json")
+    get<ProductData[]>("products.json")
       .then((data) => {
         if (data) {
           setProducts(data);
@@ -47,7 +47,7 @@ export const Products: React.FC<Props> = ({
   return (
     <div className="products-layout">
       <h1>Products</h1>
-      <p>Take a look at our products</p>
+      <p>Shop Our Premium Insoles...</p>
       <div className="products-grid">
         {loading ? (
           <Loader />

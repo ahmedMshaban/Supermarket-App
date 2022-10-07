@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../components/ui";
 
 interface Props {
-  description: string;
+  details: string;
   id: number;
   image: string;
   name: string;
@@ -15,7 +15,7 @@ export const ProductDetailInfo: React.FC<Props> = ({
   name,
   id,
   image,
-  description,
+  details,
   price,
   price_id,
   onProductAdd,
@@ -27,7 +27,7 @@ export const ProductDetailInfo: React.FC<Props> = ({
   return (
     <>
       <p>
-        {description} sold at <strong>${price}</strong> per piece.
+        {details}
       </p>
       <Button onClick={handleProductAdd}>${price}</Button>
     </>

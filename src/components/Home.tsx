@@ -4,19 +4,17 @@ export const Home: React.FC = () => {
   return (
     <div className="home-layout">
       <div>
-        <h1>Online shopping simplified</h1>
+        <h1>Feel Better. Do More!</h1>
         <p>
-          Order your groceries from <em>SuperM</em> with our easy to use app,
-          and get your products delivered straight to your doorstep.
+          Orange Insoles, we can help you reduce pain and increase performance.
         </p>
         <Link to="/products" className="btn btn-default">
-          Start shopping
+          Buy Now
         </Link>
       </div>
       <img
-        src="https://res.cloudinary.com/dbfn5lnvx/image/upload/q_auto,w_700/v1607770215/react-tutorial/supermarket/home.jpg"
+        src="./src/assets/home-banner.gif"
         width="350"
-        height="240"
         className="rounded home-image"
         alt=""
       />

@@ -11,8 +11,10 @@ interface Props {
 }
 
 const stripe = await loadStripe(
-  "pk_test_51HsqkCGuhXEITAut89vmc4jtjYd7XPs8hWfo2XPef15MFqI8rCFc8NqQU9WutlUBsd8kmNqHBeEmSrdMMpeEEyfT00KzeVdate"
+  "pk_test_nIXm3FHhT48RBH1FjblNYaWg"
 );
+
+
 
 export const Cart: React.FC<Props> = ({ cart }) => {
   const [email, setEmail] = useState("");
@@ -29,8 +31,8 @@ export const Cart: React.FC<Props> = ({ cart }) => {
             };
           }),
           mode: "payment",
-          successUrl: "https://react-tutorial.app/app.html",
-          cancelUrl: "https://react-tutorial.app/app.html",
+          successUrl: "https://ahmedmshaban.com/",
+          cancelUrl: "https://ahmedmshaban.com/",
           customerEmail: email,
         })
         .then((response) => {

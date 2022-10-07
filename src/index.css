@@ -3,8 +3,8 @@
   --black: #000;
 
   /* Primary colors*/
-  --primary-1: #2b8379;
-  --primary-2: #19a596;
+  --primary-1: #f58426;
+  --primary-2: #de6a0a;
   --primary-3: #7fd1c7;
   --primary-4: #7fd1c7;
   --primary-5: #d0f3ef;
@@ -128,8 +128,8 @@ a:hover {
 }
 
 .btn-outline {
-  color: var(--primary-1);
-  background-color: var(--primary-4);
+  color: var(--white);
+  background-color: var(--primary-1);
   border: var(--primary-1) 2px solid;
   box-shadow: 1px 1px 7px #c4c4c4;
   padding: 8px 25px;
@@ -198,12 +198,17 @@ input:focus {
 }
 
 .nav-brand {
-  font-size: 40px;
   font-weight: 450;
   text-decoration: none;
   padding-left: 20px;
   color: initial;
 }
+
+.nav-brand img {
+  height: 50px;
+  display: inline-block;
+}
+
 .nav-brand:hover {
   text-decoration: none;
 }
@@ -225,7 +230,7 @@ input:focus {
 .nav-item a {
   text-decoration: none;
   font-weight: normal;
-  color: var(--primary-1);
+  color: var(--dark);
   display: inline-block;
   text-align: center;
   padding: 13px 20px;
@@ -424,7 +429,7 @@ input:focus {
   padding-left: 20px;
 }
 
-.table-nutrition tbody td:last-child {
+.table-specs tbody td:last-child {
   text-align: center;
 }
 

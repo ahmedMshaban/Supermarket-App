@@ -6,6 +6,6 @@ export * from "./Products";
 export * from "./Product";
 export * from "./ProductDetails";
 export * from "./ProductDetailInfo";
-export * from "./ProductDetailNutrition";
-export * from "./ProductDetailStorage"
+export * from "./ProductDetailSpecs";
+export * from "./ProductDetailDelivery"
 
