@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
         </Link>
       </div>
       <img
-        src="./src/assets/home-banner.gif"
+        src="home-banner.gif"
         width="350"
         className="rounded home-image"
         alt=""

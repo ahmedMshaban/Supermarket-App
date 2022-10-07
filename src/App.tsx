@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
 import {
   Home,
@@ -57,7 +57,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navbar cart={cart} />
       <div className="container">
         <Switch>
@@ -82,7 +82,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

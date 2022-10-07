@@ -17,7 +17,7 @@ export const Navbar: React.FC<Props> = ({ cart }) => {
   return (
     <nav className="navbar">
       <NavLink to="/" exact className="nav-brand">
-        <img src="/src/assets/logo.png" alt="Orange Insoles" />
+        <img src="logo.png" alt="Orange Insoles" />
       </NavLink>
       <ul>
         <li className="nav-item">
