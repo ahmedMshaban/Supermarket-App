@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "../components/ui";
 import { Link } from "react-router-dom";
-
+import { AppContext } from "./AppContext";
+import { Product as ProductData } from "../Product.module";
 
 interface Props {
   name: string;
@@ -10,13 +11,6 @@ interface Props {
   image: string;
   price: number;
   price_id: string;
-  cart: Product[];
-  onProductAdd: (params: { [key: string]: string | number }) => void;
-  onProductDelete: (id: number) => void;
-}
-
-interface Product {
-  [key: string]: string | number;
 }
 
 export const Product: React.FC<Props> = ({
@@ -26,23 +20,12 @@ export const Product: React.FC<Props> = ({
   image,
   price,
   price_id,
-  cart,
-  onProductAdd,
-  onProductDelete,
 }) => {
-  const handleProductAdd = () => {
-    onProductAdd({ name, id, image, price, price_id, quantity: 1 });
-  };
+  const { cart, handleProductAdd, handleProductDelete, getProductFromCart } =
+    useContext(AppContext);
 
-  const handleProductDelete = () => {
-    onProductDelete(id);
-  };
-
-  const productFromCart = cart.find(
-    (product: Product) => product.id === id
-  ) ?? { quantity: 0 };
+  const productFromCart = getProductFromCart(id);
   const quantity = productFromCart ? productFromCart.quantity : 0;
-
 
   return (
     <div className="product">
@@ -57,9 +40,7 @@ export const Product: React.FC<Props> = ({
           />
         </Link>
         <div className="product-quantity-container">
-          {quantity > 0 && (
-            <div className="product-quantity">{quantity}</div>
-          )}
+          {quantity > 0 && <div className="product-quantity">{quantity}</div>}
         </div>
       </div>
       <div className="product-info">
@@ -70,7 +51,7 @@ export const Product: React.FC<Props> = ({
         <div>
           {quantity > 0 && (
             <Button
-              onClick={handleProductDelete}
+              onClick={handleProductDelete.bind(null, id)}
               outline
               className="product-delete"
             >
@@ -79,7 +60,17 @@ export const Product: React.FC<Props> = ({
           )}
         </div>
 
-        <Button onClick={handleProductAdd} outline>
+        <Button
+          onClick={handleProductAdd.bind(null, {
+            name,
+            id,
+            image,
+            price,
+            price_id,
+            quantity: 1,
+          })}
+          outline
+        >
           ${price}
         </Button>
       </div>

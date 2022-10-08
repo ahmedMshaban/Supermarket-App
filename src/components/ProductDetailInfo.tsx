@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import React from "react";
 import { Button } from "../components/ui";
+import { AppContext } from "./AppContext";
 
 interface Props {
   details: string;
@@ -8,7 +10,6 @@ interface Props {
   name: string;
   price: number;
   price_id: string;
-  onProductAdd: (params: { [key: string]: string | number }) => void;
 }
 
 export const ProductDetailInfo: React.FC<Props> = ({
@@ -18,18 +19,24 @@ export const ProductDetailInfo: React.FC<Props> = ({
   details,
   price,
   price_id,
-  onProductAdd,
 }) => {
-  const handleProductAdd = () => {
-    onProductAdd({ name, id, image, price, price_id, quantity: 1 });
-  };
+  const { handleProductAdd } = useContext(AppContext);
 
   return (
     <>
-      <p>
-        {details}
-      </p>
-      <Button onClick={handleProductAdd}>${price}</Button>
+      <p>{details}</p>
+      <Button
+        onClick={handleProductAdd.bind(null, {
+          name,
+          id,
+          image,
+          price,
+          price_id,
+          quantity: 1,
+        })}
+      >
+        ${price}
+      </Button>
     </>
   );
 };

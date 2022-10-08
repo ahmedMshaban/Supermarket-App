@@ -1,24 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Button, Input } from "../components/ui";
 import { loadStripe } from "@stripe/stripe-js";
+import { Product } from "../Product.module";
+import { AppContext } from "./AppContext";
 
-interface Product {
-  [key: string]: string | number;
-}
+const stripe = await loadStripe("pk_test_nIXm3FHhT48RBH1FjblNYaWg");
 
-interface Props {
-  cart: Product[];
-}
-
-const stripe = await loadStripe(
-  "pk_test_nIXm3FHhT48RBH1FjblNYaWg"
-);
-
-
-
-export const Cart: React.FC<Props> = ({ cart }) => {
+export const Cart: React.FC = () => {
   const [email, setEmail] = useState("");
-  let totalCart = 0;
+  const { cart, getTotalPrice } = useContext(AppContext);
 
   useEffect(() => {
     if (email && cart.length > 0) {
@@ -73,7 +63,6 @@ export const Cart: React.FC<Props> = ({ cart }) => {
               </thead>
               <tbody>
                 {cart.map((product: Product) => {
-                  totalCart += +product.quantity * +product.price;
                   return (
                     <tr key={product.id}>
                       <td>
@@ -98,15 +87,12 @@ export const Cart: React.FC<Props> = ({ cart }) => {
                 <tr>
                   <th colSpan={2}></th>
                   <th className="cart-highlight">Total</th>
-                  <th className="cart-highlight">${totalCart}</th>
+                  <th className="cart-highlight">${getTotalPrice()}</th>
                 </tr>
               </tfoot>
             </table>
             <form className="pay-form" onSubmit={handleFormSubmit}>
-              <p>
-                Enter your email and then click on pay and your products will be
-                delivered to you on the same day!
-              </p>
+              <p>Enter your email and then click on pay.</p>
               <Input
                 autoComplete="email"
                 placeholder="Email"

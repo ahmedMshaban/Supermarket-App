@@ -24,11 +24,7 @@ interface Details {
   price_id: string;
 }
 
-interface Props {
-  onProductAdd: (params: { [key: string]: string | number }) => void;
-}
-
-export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
+export const ProductDetails: React.FC = () => {
   const { id } = useParams<Params>();
   const [details, setDetails] = useState<Details | null>(null);
   const { get, loading } = useFetch(
@@ -101,7 +97,6 @@ export const ProductDetails: React.FC<Props> = ({ onProductAdd }) => {
                 id={details.id}
                 image={details.image}
                 price_id={details.price_id}
-                onProductAdd={onProductAdd}
               />
             </Route>
             <Route exact path={`/products/${id}/specs`}>

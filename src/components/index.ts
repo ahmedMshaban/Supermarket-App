@@ -7,5 +7,6 @@ export * from "./Product";
 export * from "./ProductDetails";
 export * from "./ProductDetailInfo";
 export * from "./ProductDetailSpecs";
-export * from "./ProductDetailDelivery"
+export * from "./ProductDetailDelivery";
+export * from "./AppContext";
 

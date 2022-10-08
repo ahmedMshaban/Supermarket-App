@@ -1,18 +1,9 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AppContext } from "./AppContext";
 
-interface Product {
-  [key: string]: string | number;
-}
-
-interface Props {
-  cart: Product[];
-}
-
-export const Navbar: React.FC<Props> = ({ cart }) => {
-  let quantity = 0;
-  cart.forEach((product: Product) => {
-    quantity += product.quantity as number;
-  });
+export const Navbar: React.FC = () => {
+  const { getCartCount } = useContext(AppContext);
 
   return (
     <nav className="navbar">
@@ -37,7 +28,7 @@ export const Navbar: React.FC<Props> = ({ cart }) => {
         </li>
         <li>
           <NavLink to="/cart" className="nav-item nav-cart btn btn-accent">
-            Cart ({quantity})
+            <>Cart ({getCartCount()})</>
           </NavLink>
         </li>
       </ul>
