@@ -7,8 +7,10 @@ interface Props {
 
 interface AppContextValue {
   cart: Product[];
+  isDarkTheme: boolean;
   handleProductAdd: (product: Product) => void;
   handleProductDelete: (id: number) => void;
+  handleThemeClick: () => void;
   getCartCount: () => number;
   getTotalPrice: () => number;
   getProductFromCart: (id: number) => Product | undefined;
@@ -16,8 +18,10 @@ interface AppContextValue {
 
 const AppContext = createContext<AppContextValue>({
   cart: [{}],
+  isDarkTheme: false,
   handleProductAdd: () => {},
   handleProductDelete: () => {},
+  handleThemeClick: () => {},
   getCartCount: () => 0,
   getTotalPrice: () => 0,
   getProductFromCart: () => undefined,
@@ -33,9 +37,24 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     }
   });
 
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    return prefersDark; // true or false
+  });
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    if (isDarkTheme) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [isDarkTheme]);
 
   const getCartCount = () => {
     return cart.reduce((total: number, currentProduct: Product) => {
@@ -80,16 +99,22 @@ const AppProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  function handleProductDelete(id: number) {
+  const handleProductDelete = (id: number) => {
     setCart((prevCart) => prevCart.filter((product) => product.id !== id));
-  }
+  };
+
+  const handleThemeClick = () => {
+    setIsDarkTheme((prevTheme) => !prevTheme);
+  };
 
   return (
     <AppContext.Provider
       value={{
         cart,
+        isDarkTheme,
         handleProductAdd,
         handleProductDelete,
+        handleThemeClick,
         getCartCount,
         getTotalPrice,
         getProductFromCart,

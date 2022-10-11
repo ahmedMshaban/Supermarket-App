@@ -22,11 +22,20 @@
   --accent-3: #de7699;
   --accent-4: #e6c3ce;
   --accent-5: #fff2f7;
+
+  --surface-color: white;
+  --surface-shadow: #c4c4c4;
 }
 
 body {
   background-color: var(--neutral-5);
   margin: 0;
+}
+
+body.dark {
+  color: var(--white);
+  --neutral-5: #222;
+  --surface-shadow: white;
 }
 
 h1 {
@@ -221,6 +230,9 @@ input:focus {
   overflow: hidden;
   padding-right: 20px;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .navbar li {
@@ -230,7 +242,7 @@ input:focus {
 .nav-item a {
   text-decoration: none;
   font-weight: normal;
-  color: var(--dark);
+  color: var(--black);
   display: inline-block;
   text-align: center;
   padding: 13px 20px;
@@ -244,6 +256,18 @@ input:focus {
 
 .nav-item a.active {
   font-weight: bold;
+}
+
+.nav-item img {
+  width: 18px;
+  padding-right: 5px;
+}
+
+.nav-item .btn {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  color: var(--black);
 }
 
 .nav-cart {
@@ -276,6 +300,11 @@ input:focus {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.dark .tabs a {
+  color: var(--white);
+}
+
 .tabs .tab-active {
   border-bottom: 7px solid var(--primary-1);
 }
@@ -328,6 +357,10 @@ input:focus {
 
 .product-info {
   padding-left: 25px;
+}
+
+.dark .product-info {
+  color: var(--black);
 }
 
 .product-checkout {

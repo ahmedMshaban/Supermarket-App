@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AppContext } from "./AppContext";
+import { Button } from "../components/ui";
 
 export const Navbar: React.FC = () => {
-  const { getCartCount } = useContext(AppContext);
+  const { getCartCount, isDarkTheme, handleThemeClick } =
+    useContext(AppContext);
 
   return (
     <nav className="navbar">
@@ -30,6 +32,19 @@ export const Navbar: React.FC = () => {
           <NavLink to="/cart" className="nav-item nav-cart btn btn-accent">
             <>Cart ({getCartCount()})</>
           </NavLink>
+        </li>
+        <li className="nav-item">
+          <Button onClick={handleThemeClick} >
+            {isDarkTheme ? (
+              <>
+                <img src="./light.svg" alt="Dark theme" /> Switch to light theme
+              </>
+            ) : (
+              <>
+                <img src="./night.svg" alt="Dark theme" /> Switch to dark theme
+              </>
+            )}
+          </Button>
         </li>
       </ul>
     </nav>
