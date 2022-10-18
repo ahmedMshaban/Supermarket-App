@@ -1,20 +1,22 @@
-import { useEffect, useState, useContext } from "react";
-import { Button, Input } from "../components/ui";
+import { useEffect, useState } from "react";
+import { cartValueSelector } from "../store/cartSlice";
 import { loadStripe } from "@stripe/stripe-js";
+import { Button, Input } from "../components/ui";
 import { Product } from "../Product.module";
-import { AppContext } from "./AppContext";
+import { useAppSelector } from "../hooks";
 
 const stripe = await loadStripe("pk_test_nIXm3FHhT48RBH1FjblNYaWg");
 
 export const Cart: React.FC = () => {
   const [email, setEmail] = useState("");
-  const { cart, getTotalPrice } = useContext(AppContext);
+  const totalPrice = useAppSelector((state) => cartValueSelector(state.cart));
+  const cart = useAppSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
     if (email && cart.length > 0) {
       stripe
         ?.redirectToCheckout({
-          lineItems: cart.map((product) => {
+          lineItems: cart.map((product: Product) => {
             return {
               price: product.price_id as string,
               quantity: product.quantity as number,
@@ -87,7 +89,7 @@ export const Cart: React.FC = () => {
                 <tr>
                   <th colSpan={2}></th>
                   <th className="cart-highlight">Total</th>
-                  <th className="cart-highlight">${getTotalPrice()}</th>
+                  <th className="cart-highlight">${totalPrice}</th>
                 </tr>
               </tfoot>
             </table>

@@ -1,7 +1,7 @@
-import { useContext } from "react";
 import React from "react";
+import { useAppDispatch } from "../hooks";
 import { Button } from "../components/ui";
-import { AppContext } from "./AppContext";
+import { addProduct } from "../store/cartSlice";
 
 interface Props {
   details: string;
@@ -20,20 +20,24 @@ export const ProductDetailInfo: React.FC<Props> = ({
   price,
   price_id,
 }) => {
-  const { handleProductAdd } = useContext(AppContext);
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <p>{details}</p>
       <Button
-        onClick={handleProductAdd.bind(null, {
-          name,
-          id,
-          image,
-          price,
-          price_id,
-          quantity: 1,
-        })}
+        onClick={() =>
+          dispatch(
+            addProduct({
+              name,
+              id,
+              image,
+              price,
+              price_id,
+              quantity: 1,
+            })
+          )
+        }
       >
         ${price}
       </Button>

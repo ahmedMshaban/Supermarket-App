@@ -1,11 +1,13 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { AppContext } from "./AppContext";
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { cartCountSelector } from "../store/cartSlice";
+import { switchTheme } from "../store/themeSlice";
 import { Button } from "../components/ui";
 
 export const Navbar: React.FC = () => {
-  const { getCartCount, isDarkTheme, handleThemeClick } =
-    useContext(AppContext);
+  const dispatch = useAppDispatch();
+  const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme);
+  const cartCount = useAppSelector((state) => cartCountSelector(state.cart));
 
   return (
     <nav className="navbar">
@@ -30,11 +32,11 @@ export const Navbar: React.FC = () => {
         </li>
         <li>
           <NavLink to="/cart" className="nav-item nav-cart btn btn-accent">
-            <>Cart ({getCartCount()})</>
+            <>Cart ({cartCount})</>
           </NavLink>
         </li>
         <li className="nav-item">
-          <Button onClick={handleThemeClick} >
+          <Button onClick={() => dispatch(switchTheme())}>
             {isDarkTheme ? (
               <>
                 <img src="./light.svg" alt="Dark theme" /> Switch to light theme

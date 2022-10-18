@@ -1,8 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useAppSelector, useAppDispatch } from "../hooks";
+import {
+  addProduct,
+  removeProduct,
+  getProductSelector,
+} from "../store/cartSlice";
 import { Button } from "../components/ui";
 import { Link } from "react-router-dom";
-import { AppContext } from "./AppContext";
-import { Product as ProductData } from "../Product.module";
 
 interface Props {
   name: string;
@@ -21,10 +25,10 @@ export const Product: React.FC<Props> = ({
   price,
   price_id,
 }) => {
-  const { cart, handleProductAdd, handleProductDelete, getProductFromCart } =
-    useContext(AppContext);
-
-  const productFromCart = getProductFromCart(id);
+  const dispatch = useAppDispatch();
+  const productFromCart = useAppSelector((state) =>
+    getProductSelector(state.cart, id)
+  );
   const quantity = productFromCart ? productFromCart.quantity : 0;
 
   return (
@@ -51,7 +55,7 @@ export const Product: React.FC<Props> = ({
         <div>
           {quantity > 0 && (
             <Button
-              onClick={handleProductDelete.bind(null, id)}
+              onClick={() => dispatch(removeProduct(id))}
               outline
               className="product-delete"
             >
@@ -61,14 +65,18 @@ export const Product: React.FC<Props> = ({
         </div>
 
         <Button
-          onClick={handleProductAdd.bind(null, {
-            name,
-            id,
-            image,
-            price,
-            price_id,
-            quantity: 1,
-          })}
+          onClick={() =>
+            dispatch(
+              addProduct({
+                name,
+                id,
+                image,
+                price,
+                price_id,
+                quantity: 1,
+              })
+            )
+          }
           outline
         >
           ${price}

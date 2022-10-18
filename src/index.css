@@ -466,8 +466,9 @@ input:focus {
   text-align: center;
 }
 
-.table tbody tr:nth-child(2n) {
+.dark .table tbody tr:nth-child(2n) {
   background-color: white;
+  color: var(--black);
 }
 
 .table tbody tr:nth-child(2n + 1) {
